@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make Up — Pigment, Considered</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=Inter:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1410;
+    --ink-soft:#2A2118;
+    --bone:#F2E9DD;
+    --bone-dim:#E7DAC7;
+    --clay:#C97B63;
+    --clay-deep:#A85B45;
+    --gold:#B8935A;
+    --berry:#6B2737;
+    --line: rgba(242,233,221,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+  }
+
+  .display{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- utility ---------- */
+  .eyebrow{
+    font-size:0.7rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--clay);
+    font-weight:600;
+  }
+
+  .wrap{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 6vw;
+  }
+
+  /* ---------- swatch motif (signature element) ---------- */
+  .swatch-strip{
+    display:flex;
+    height:14px;
+    width:100%;
+  }
+  .swatch-strip span{
+    flex:1;
+    height:100%;
+  }
+  .swatch-strip .s1{background:#A8473A;}
+  .swatch-strip .s2{background:#C97B63;}
+  .swatch-strip .s3{background:#D9AD7D;}
+  .swatch-strip .s4{background:#8A4A3C;}
+  .swatch-strip .s5{background:#6B2737;}
+  .swatch-strip .s6{background:#B8935A;}
+  .swatch-strip .s7{background:#E0C29A;}
+  .swatch-strip .s8{background:#5C2A2E;}
+
+  .smear{
+    border-radius:50% 50% 48% 52% / 55% 50% 50% 45%;
+    filter: blur(0.3px);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(26,20,16,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:1.1rem 6vw;
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:1.35rem;
+    letter-spacing:0.01em;
+  }
+  .logo em{font-style:italic; color:var(--clay);}
+  .nav-links{
+    display:flex;
+    gap:2.4rem;
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+  }
+  .nav-links a{
+    position:relative;
+    padding-bottom:6px;
+    opacity:0.85;
+    transition:opacity 0.25s ease;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; right:100%; bottom:0;
+    height:1px;
+    background:var(--clay);
+    transition:right 0.3s ease;
+  }
+  .nav-links a:hover::after{right:0;}
+  .nav-cta{
+    font-size:0.78rem;
+    letter-spacing:0.05em;
+    border:1px solid var(--bone-dim);
+    padding:0.55rem 1.3rem;
+    border-radius:30px;
+    transition: all 0.25s ease;
+  }
+  .nav-cta:hover{
+    background:var(--bone);
+    color:var(--ink);
+    border-color:var(--bone);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:5rem;
+    overflow:hidden;
+  }
+
+  .hero-bg-smear{
+    position:absolute;
+    pointer-events:none;
+    opacity:0.55;
+  }
+  .smear-1{
+    width:520px; height:520px;
+    background: radial-gradient(circle at 35% 35%, var(--berry), transparent 70%);
+    top:-160px; right:-160px;
+    border-radius:50%;
+    filter: blur(40px);
+    opacity:0.35;
+  }
+  .smear-2{
+    width:420px; height:420px;
+    background: radial-gradient(circle at 60% 40%, var(--clay), transparent 70%);
+    bottom:-120px; left:-140px;
+    border-radius:50%;
+    filter: blur(50px);
+    opacity:0.25;
+  }
+
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap:3rem;
+    align-items:center;
+  }
+
+  .hero-type{
+    line-height:0.92;
+  }
+  .hero-type .line{
+    display:block;
+    overflow:hidden;
+  }
+  .hero-type .line span{
+    display:block;
+    transform:translateY(110%);
+    animation: rise 0.9s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  .hero-type .line:nth-child(1) span{animation-delay:0.05s;}
+  .hero-type .line:nth-child(2) span{animation-delay:0.18s;}
+
+  @keyframes rise{
+    to{transform:translateY(0);}
+  }
+
+  .word-make{
+    font-size:clamp(4.2rem, 11vw, 8.5rem);
+    font-weight:300;
+    color:var(--bone);
+  }
+  .word-up{
+    font-size:clamp(4.2rem, 11vw, 8.5rem);
+    font-weight:500;
+    font-style:italic;
+    color:var(--clay);
+    margin-top:-0.12em;
+  }
+
+  .hero-copy{
+    margin-top:2.1rem;
+    max-width:380px;
+    font-size:1rem;
+    line-height:1.65;
+    color:var(--bone-dim);
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards;
+    animation-delay:0.55s;
+  }
+  .hero-actions{
+    margin-top:2.3rem;
+    display:flex;
+    gap:1rem;
+    align-items:center;
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards;
+    animation-delay:0.7s;
+  }
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .btn-primary{
+    background:var(--bone);
+    color:var(--ink);
+    padding:0.95rem 2.1rem;
+    font-size:0.82rem;
+    letter-spacing:0.05em;
+    border-radius:30px;
+    font-weight:600;
+    transition: transform 0.25s ease, background 0.25s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{
+    background:var(--clay);
+    color:var(--ink);
+    transform:translateY(-2px);
+  }
+  .btn-ghost{
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    border-bottom:1px solid var(--clay);
+    padding-bottom:4px;
+    color:var(--bone);
+    opacity:0.9;
+  }
+
+  /* hero right: swatch column */
+  .swatch-column{
+    display:flex;
+    flex-direction:column;
+    gap:0.65rem;
+    opacity:0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay:0.4s;
+  }
+  .swatch-row{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    padding:0.9rem 1.2rem;
+    background: rgba(242,233,221,0.03);
+    border-radius:24px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .swatch-row:hover{
+    background:rgba(201,123,99,0.1);
+    transform: translateX(4px);
+  }
+  .swatch-dot{
+    width:34px; height:34px;
+    border-radius:50% 48% 52% 50% / 50% 52% 48% 50%;
+    flex-shrink:0;
+  }
+  .swatch-row .meta{
+    display:flex;
+    flex-direction:column;
+    gap:0.15rem;
+  }
+  .swatch-row .name{
+    font-family:'Fraunces', serif;
+    font-size:0.95rem;
+  }
+  .swatch-row .shade{
+    font-size:0.72rem;
+    color:var(--bone-dim);
+    opacity:0.7;
+  }
+
+  /* ---------- marquee divider ---------- */
+  .marquee-wrap{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    padding:1.1rem 0;
+    background: var(--ink-soft);
+  }
+  .marquee{
+    display:flex;
+    white-space:nowrap;
+    animation: scroll 28s linear infinite;
+  }
+  .marquee span{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--bone-dim);
+    padding:0 2.5rem;
+    opacity:0.75;
+  }
+  .marquee span::after{
+    content:'•';
+    margin-left:2.5rem;
+    color:var(--clay);
+    font-style:normal;
+  }
+  @keyframes scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ---------- philosophy / about strip ---------- */
+  .philosophy{
+    padding:8rem 0 6rem;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:4rem;
+    align-items:start;
+  }
+  .philosophy .eyebrow{margin-bottom:1.2rem; display:block;}
+  .philosophy h2{
+    font-size:clamp(2rem, 3.4vw, 2.8rem);
+    font-weight:400;
+    line-height:1.15;
+  }
+  .philosophy h2 em{
+    font-style:italic;
+    color:var(--clay);
+  }
+  .philosophy-body p{
+    font-size:0.98rem;
+    line-height:1.8;
+    color:var(--bone-dim);
+    margin-bottom:1.4rem;
+    max-width:440px;
+  }
+  .philosophy-stats{
+    margin-top:2rem;
+    display:flex;
+    gap:2.5rem;
+  }
+  .stat .num{
+    font-family:'Fraunces', serif;
+    font-size:2.1rem;
+    color:var(--gold);
+  }
+  .stat .label{
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    opacity:0.7;
+    margin-top:0.2rem;
+  }
+
+  /* ---------- featured categories ---------- */
+  .categories{
+    padding:5rem 0 7rem;
+  }
+  .cat-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:3rem;
+  }
+  .cat-head h2{
+    font-size:clamp(2rem, 3.2vw, 2.6rem);
+    font-weight:400;
+  }
+  .cat-head h2 em{font-style:italic; color:var(--clay);}
+  .cat-head a{
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+    border-bottom:1px solid var(--clay);
+    padding-bottom:4px;
+    white-space:nowrap;
+  }
+
+  .cat-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1.5rem;
+  }
+  .cat-card{
+    position:relative;
+    border-radius:36px;
+    overflow:hidden;
+    aspect-ratio: 4/5;
+    display:flex;
+    align-items:flex-end;
+    padding:1.8rem;
+    transition: transform 0.4s cubic-bezier(.16,1,.3,1), box-shadow 0.4s ease;
+  }
+  .cat-card:hover{
+    transform:translateY(-6px);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.55);
+  }
+  .cat-card .blob{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+  .cat-card.c1 .blob{ background: radial-gradient(circle at 70% 20%, #8A4A3C, var(--ink-soft) 70%);}
+  .cat-card.c2 .blob{ background: radial-gradient(circle at 30% 25%, var(--berry), var(--ink-soft) 70%);}
+  .cat-card.c3 .blob{ background: radial-gradient(circle at 60% 15%, var(--gold), var(--ink-soft) 70%);}
+
+  .cat-card .content{
+    position:relative;
+    z-index:1;
+  }
+  .cat-card .eyebrow{color:rgba(242,233,221,0.65);}
+  .cat-card h3{
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    margin-top:0.4rem;
+    font-weight:400;
+  }
+  .cat-card .count{
+    font-size:0.78rem;
+    color:var(--bone-dim);
+    opacity:0.75;
+    margin-top:0.3rem;
+  }
+
+  /* ---------- ritual / how-to section ---------- */
+  .ritual{
+    padding:6rem 0;
+    background:var(--ink-soft);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .ritual-head{
+    text-align:center;
+    max-width:560px;
+    margin:0 auto 4rem;
+  }
+  .ritual-head h2{
+    font-size:clamp(2rem, 3.2vw, 2.6rem);
+    font-weight:400;
+    margin-top:1rem;
+  }
+  .ritual-head h2 em{font-style:italic; color:var(--clay);}
+  .ritual-head p{
+    margin-top:1rem;
+    color:var(--bone-dim);
+    line-height:1.7;
+    font-size:0.95rem;
+  }
+  .ritual-steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2.5rem;
+  }
+  .ritual-step{
+    text-align:center;
+    padding:0 1rem;
+  }
+  .ritual-step .mark{
+    width:64px; height:64px;
+    margin:0 auto 1.3rem;
+    border-radius:50%;
+    border:1px solid var(--clay);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .ritual-step .mark .dot{
+    width:22px; height:22px;
+    border-radius:50% 48% 52% 50% / 50% 52% 48% 50%;
+  }
+  .ritual-step:nth-child(1) .dot{background:var(--clay);}
+  .ritual-step:nth-child(2) .dot{background:var(--berry);}
+  .ritual-step:nth-child(3) .dot{background:var(--gold);}
+  .ritual-step h4{
+    font-family:'Fraunces', serif;
+    font-size:1.2rem;
+    margin-bottom:0.6rem;
+  }
+  .ritual-step p{
+    font-size:0.88rem;
+    color:var(--bone-dim);
+    line-height:1.65;
+  }
+
+  /* ---------- newsletter / cta ---------- */
+  .cta-section{
+    padding:7rem 0;
+    text-align:center;
+  }
+  .cta-section .eyebrow{display:block; margin-bottom:1.2rem;}
+  .cta-section h2{
+    font-size:clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight:400;
+    max-width:680px;
+    margin:0 auto;
+    line-height:1.2;
+  }
+  .cta-section h2 em{font-style:italic; color:var(--clay);}
+  .cta-form{
+    margin:2.5rem auto 0;
+    display:flex;
+    max-width:420px;
+    border-bottom:1px solid var(--bone-dim);
+    padding-bottom:0.8rem;
+  }
+  .cta-form input{
+    flex:1;
+    background:none;
+    border:none;
+    outline:none;
+    color:var(--bone);
+    font-size:0.95rem;
+    font-family:'Inter', sans-serif;
+  }
+  .cta-form input::placeholder{color:rgba(242,233,221,0.45);}
+  .cta-form button{
+    background:none;
+    border:none;
+    color:var(--clay);
+    font-size:0.82rem;
+    letter-spacing:0.05em;
+    cursor:pointer;
+    font-weight:600;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:3.5rem 0 2.5rem;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap:2rem;
+    margin-bottom:3rem;
+  }
+  .footer-logo{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    margin-bottom:0.8rem;
+  }
+  .footer-logo em{font-style:italic; color:var(--clay);}
+  .footer-grid p{
+    font-size:0.85rem;
+    color:var(--bone-dim);
+    line-height:1.6;
+    max-width:280px;
+  }
+  .footer-col h5{
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    opacity:0.6;
+    margin-bottom:1rem;
+  }
+  .footer-col a{
+    display:block;
+    font-size:0.88rem;
+    color:var(--bone-dim);
+    margin-bottom:0.7rem;
+    transition:color 0.2s ease;
+  }
+  .footer-col a:hover{color:var(--clay);}
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    padding-top:2rem;
+    border-top:1px solid var(--line);
+    font-size:0.78rem;
+    color:var(--bone-dim);
+    opacity:0.6;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 880px){
+    .nav-links{display:none;}
+    .hero-inner{grid-template-columns:1fr; gap:2.5rem;}
+    .philosophy{grid-template-columns:1fr; gap:2rem;}
+    .cat-grid{grid-template-columns:1fr;}
+    .ritual-steps{grid-template-columns:1fr; gap:2.5rem;}
+    .footer-grid{grid-template-columns:1fr 1fr; gap:2.5rem;}
+    .cat-head{flex-direction:column; align-items:flex-start; gap:1rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--clay);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="swatch-strip" aria-hidden="true">
+  <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span>
+  <span class="s5"></span><span class="s6"></span><span class="s7"></span><span class="s8"></span>
+</div>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="logo">make <em>up</em></a>
+    <div class="nav-links">
+      <a href="index.html#categories">Categories</a>
+      <a href="index.html#ritual">Ritual</a>
+      <a href="shop.html">Shop</a>
+    </div>
+    <a href="shop.html" class="nav-cta">Enter Shop</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg-smear smear-1"></div>
+  <div class="hero-bg-smear smear-2"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-type">
+        <span class="line"><span class="word-make display">Make</span></span>
+        <span class="line"><span class="word-up display">Up</span></span>
+      </div>
+      <p class="hero-copy">Pigment with intention. A small color edit of lip, cheek, and eye — formulated for skin, worn like jewelry. No filler shades, no seasonal noise.</p>
+      <div class="hero-actions">
+        <a href="shop.html" class="btn-primary">Shop the Edit</a>
+        <a href="index.html#categories" class="btn-ghost">View Categories</a>
+      </div>
+    </div>
+
+    <div class="swatch-column">
+      <div class="swatch-row">
+        <div class="swatch-dot" style="background:#A8473A;"></div>
+        <div class="meta"><span class="name display">Embered</span><span class="shade">Velvet Lip — 04</span></div>
+      </div>
+      <div class="swatch-row">
+        <div class="swatch-dot" style="background:#D9AD7D;"></div>
+        <div class="meta"><span class="name display">Honeyfade</span><span class="shade">Sheer Cheek — 02</span></div>
+      </div>
+      <div class="swatch-row">
+        <div class="swatch-dot" style="background:#6B2737;"></div>
+        <div class="meta"><span class="name display">Last Call</span><span class="shade">Velvet Lip — 09</span></div>
+      </div>
+      <div class="swatch-row">
+        <div class="swatch-dot" style="background:#8A4A3C;"></div>
+        <div class="meta"><span class="name display">Bare Wood</span><span class="shade">Eye Pigment — 01</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee">
+    <span>Clean Formulas</span><span>Refillable Bullets</span><span>Cruelty Free</span><span>Small Batch</span><span>Skin-First Pigment</span>
+    <span>Clean Formulas</span><span>Refillable Bullets</span><span>Cruelty Free</span><span>Small Batch</span><span>Skin-First Pigment</span>
+  </div>
+</div>
+
+<section class="philosophy wrap">
+  <div>
+    <span class="eyebrow">Our Approach</span>
+    <h2 class="display">Color is a decision, <em>not a default.</em></h2>
+  </div>
+  <div class="philosophy-body">
+    <p>We build small, considered collections rather than sprawling color walls. Every shade in Make Up is tested on real skin tones across the full range before it earns a place in the edit — if it doesn't sit beautifully on at least eight undertones, it doesn't ship.</p>
+    <p>The result is a wardrobe of color you'll actually reach for, not a drawer of impulse buys.</p>
+    <div class="philosophy-stats">
+      <div class="stat">
+        <div class="num display">32</div>
+        <div class="label">Shades Total</div>
+      </div>
+      <div class="stat">
+        <div class="num display">0</div>
+        <div class="label">Filler Products</div>
+      </div>
+      <div class="stat">
+        <div class="num display">8+</div>
+        <div class="label">Undertones Tested</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="categories wrap" id="categories">
+  <div class="cat-head">
+    <h2 class="display">Where to <em>begin.</em></h2>
+    <a href="shop.html">See full catalog →</a>
+  </div>
+  <div class="cat-grid">
+    <a href="shop.html?cat=lip" class="cat-card c1">
+      <div class="blob"></div>
+      <div class="content">
+        <span class="eyebrow">Lip</span>
+        <h3 class="display">Velvet & Sheer</h3>
+        <div class="count">9 shades</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=cheek" class="cat-card c2">
+      <div class="blob"></div>
+      <div class="content">
+        <span class="eyebrow">Cheek</span>
+        <h3 class="display">Flush & Bronze</h3>
+        <div class="count">7 shades</div>
+      </div>
+    </a>
+    <a href="shop.html?cat=eye" class="cat-card c3">
+      <div class="blob"></div>
+      <div class="content">
+        <span class="eyebrow">Eye</span>
+        <h3 class="display">Pigment & Liner</h3>
+        <div class="count">11 shades</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="ritual" id="ritual">
+  <div class="wrap">
+    <div class="ritual-head">
+      <span class="eyebrow">The Ritual</span>
+      <h2 class="display">Three layers, <em>one face.</em></h2>
+      <p>Our edit is built to be worn together — a lip, a cheek, and an eye that were formulated as a set, not assembled by accident.</p>
+    </div>
+    <div class="ritual-steps">
+      <div class="ritual-step">
+        <div class="mark"><div class="dot"></div></div>
+        <h4 class="display">Warm the Cheek</h4>
+        <p>Press cream blush into the apple of the cheek with fingertips — body heat blends it like nothing else can.</p>
+      </div>
+      <div class="ritual-step">
+        <div class="mark"><div class="dot"></div></div>
+        <h4 class="display">Define the Eye</h4>
+        <p>One pass of pigment along the lash line. Smudge while it's wet for a worn-in, not drawn-on, finish.</p>
+      </div>
+      <div class="ritual-step">
+        <div class="mark"><div class="dot"></div></div>
+        <h4 class="display">Finish on Lip</h4>
+        <p>Pat, don't drag. Our velvet bullets are built to be blotted once and left alone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section wrap">
+  <span class="eyebrow">Stay in Pigment</span>
+  <h2 class="display">First word on new shades <em>and restocks.</em></h2>
+  <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Added ✓';">
+    <input type="email" placeholder="your@email.com" required>
+    <button type="submit">Notify Me</button>
+  </form>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">make <em>up</em></div>
+        <p>A small-batch color studio for lip, cheek, and eye. Formulated for skin, not for shelves.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <a href="shop.html">All Products</a>
+        <a href="shop.html">Lip</a>
+        <a href="shop.html">Cheek</a>
+        <a href="shop.html">Eye</a>
+      </div>
+      <div class="footer-col">
+        <h5>Studio</h5>
+        <a href="#">Our Approach</a>
+        <a href="#">Ingredients</a>
+        <a href="#">Sustainability</a>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Make Up Studio</span>
+      <span>Crafted with care</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

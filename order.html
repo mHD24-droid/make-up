@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order — Make Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1410;
+    --ink-soft:#2A2118;
+    --bone:#F2E9DD;
+    --bone-dim:#E7DAC7;
+    --clay:#C97B63;
+    --clay-deep:#A85B45;
+    --gold:#B8935A;
+    --berry:#6B2737;
+    --line: rgba(242,233,221,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+  }
+  .display{font-family:'Fraunces', serif; font-weight:400;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit;}
+
+  .eyebrow{
+    font-size:0.7rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--clay);
+    font-weight:600;
+  }
+
+  .wrap{max-width:1100px; margin:0 auto; padding:0 6vw;}
+
+  .swatch-strip{display:flex; height:14px; width:100%;}
+  .swatch-strip span{flex:1; height:100%;}
+  .swatch-strip .s1{background:#A8473A;}
+  .swatch-strip .s2{background:#C97B63;}
+  .swatch-strip .s3{background:#D9AD7D;}
+  .swatch-strip .s4{background:#8A4A3C;}
+  .swatch-strip .s5{background:#6B2737;}
+  .swatch-strip .s6{background:#B8935A;}
+  .swatch-strip .s7{background:#E0C29A;}
+  .swatch-strip .s8{background:#5C2A2E;}
+
+  /* ---------- header ---------- */
+  header{
+    position:relative;
+    z-index:100;
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:1.1rem 6vw;}
+  .logo{font-family:'Fraunces', serif; font-size:1.35rem;}
+  .logo em{font-style:italic; color:var(--clay);}
+  .back-link{
+    font-size:0.82rem;
+    letter-spacing:0.02em;
+    color:var(--bone-dim);
+    display:flex;
+    align-items:center;
+    gap:0.5rem;
+    transition: color 0.2s ease;
+  }
+  .back-link:hover{color:var(--clay);}
+
+  /* ---------- layout ---------- */
+  .order-section{
+    padding:4rem 0 6rem;
+    display:grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap:4.5rem;
+    align-items:start;
+  }
+
+  /* ---------- product summary side ---------- */
+  .product-summary{
+    position:sticky;
+    top:3rem;
+  }
+  .product-visual{
+    width:100%;
+    aspect-ratio: 1/1;
+    border-radius:40px;
+    background: var(--ink-soft);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:1.8rem;
+    position:relative;
+    overflow:hidden;
+  }
+  .product-visual .glow{
+    position:absolute;
+    width:140%; height:140%;
+    border-radius:50%;
+    filter: blur(50px);
+    opacity:0.35;
+  }
+  .product-emblem{
+    width:48%;
+    height:48%;
+    border-radius:50% 48% 52% 50% / 55% 50% 50% 45%;
+    position:relative;
+    z-index:1;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .product-summary .cat-tag{
+    font-size:0.7rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--clay);
+    font-weight:600;
+  }
+  .product-summary h1{
+    font-size:clamp(1.8rem, 3vw, 2.4rem);
+    margin-top:0.5rem;
+    font-weight:400;
+  }
+  .product-summary .shade-name{
+    color:var(--bone-dim);
+    font-size:0.95rem;
+    margin-top:0.3rem;
+  }
+  .product-summary .price{
+    font-family:'Fraunces', serif;
+    font-size:1.7rem;
+    color:var(--gold);
+    margin-top:1rem;
+  }
+  .product-summary .desc{
+    margin-top:1.4rem;
+    color:var(--bone-dim);
+    line-height:1.75;
+    font-size:0.92rem;
+    max-width:420px;
+  }
+
+  .summary-line{
+    display:flex;
+    justify-content:space-between;
+    padding:0.9rem 0;
+    border-top:1px solid var(--line);
+    font-size:0.88rem;
+    color:var(--bone-dim);
+  }
+  .summary-line.total{
+    color:var(--bone);
+    font-weight:600;
+    font-size:0.98rem;
+  }
+  .summary-line .v{color:var(--bone);}
+  .summary-block{margin-top:2rem;}
+
+  /* ---------- form side ---------- */
+  .order-form-card{
+    background: var(--ink-soft);
+    border-radius:40px;
+    padding:3rem;
+  }
+  .order-form-card .eyebrow{display:block; margin-bottom:0.6rem;}
+  .order-form-card h2{
+    font-size:1.6rem;
+    font-weight:400;
+    margin-bottom:0.4rem;
+  }
+  .order-form-card .sub{
+    color:var(--bone-dim);
+    font-size:0.9rem;
+    margin-bottom:2.2rem;
+  }
+
+  .field{
+    margin-bottom:1.4rem;
+  }
+  .field label{
+    display:block;
+    font-size:0.78rem;
+    letter-spacing:0.03em;
+    color:var(--bone-dim);
+    margin-bottom:0.55rem;
+  }
+  .field input,
+  .field select{
+    width:100%;
+    background: rgba(242,233,221,0.05);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:0.95rem 1.2rem;
+    color:var(--bone);
+    font-size:0.95rem;
+    font-family:inherit;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+  .field input::placeholder{color:rgba(242,233,221,0.35);}
+  .field input:focus,
+  .field select:focus{
+    outline:none;
+    border-color:var(--clay);
+    background: rgba(242,233,221,0.08);
+  }
+  .field select{
+    cursor:pointer;
+    appearance:none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%23E7DAC7' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position: right 1.2rem center;
+  }
+  .field select option{background:var(--ink-soft); color:var(--bone);}
+
+  .row-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.2rem;
+  }
+
+  .submit-btn{
+    width:100%;
+    background:var(--bone);
+    color:var(--ink);
+    border:none;
+    padding:1.05rem 0;
+    border-radius:30px;
+    font-size:0.92rem;
+    font-weight:600;
+    letter-spacing:0.03em;
+    cursor:pointer;
+    margin-top:0.6rem;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+  .submit-btn:hover{background:var(--clay); transform:translateY(-2px);}
+  .submit-btn:disabled{opacity:0.6; cursor:not-allowed; transform:none;}
+
+  .form-note{
+    font-size:0.78rem;
+    color:var(--bone-dim);
+    opacity:0.65;
+    margin-top:1rem;
+    text-align:center;
+    line-height:1.6;
+  }
+
+  .form-error{
+    background: rgba(107,39,55,0.18);
+    color:#E5A9B5;
+    border-radius:14px;
+    padding:0.85rem 1.1rem;
+    font-size:0.85rem;
+    margin-bottom:1.2rem;
+    display:none;
+  }
+  .form-error.show{display:block;}
+
+  /* ---------- success state ---------- */
+  .success-state{
+    display:none;
+    text-align:center;
+    padding:2rem 0;
+  }
+  .success-state.show{display:block;}
+  .success-icon{
+    width:70px; height:70px;
+    border-radius:50%;
+    background: var(--clay);
+    margin:0 auto 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .success-state h2{font-size:1.6rem; margin-bottom:0.6rem;}
+  .success-state p{color:var(--bone-dim); font-size:0.92rem; line-height:1.7; max-width:340px; margin:0 auto;}
+  .success-state .back-shop{
+    display:inline-block;
+    margin-top:1.8rem;
+    font-size:0.85rem;
+    border-bottom:1px solid var(--clay);
+    padding-bottom:4px;
+  }
+
+  /* ---------- empty / no product state ---------- */
+  .no-product{
+    text-align:center;
+    padding:6rem 0;
+  }
+  .no-product h2{font-size:1.8rem; margin-bottom:1rem;}
+  .no-product p{color:var(--bone-dim); margin-bottom:2rem;}
+  .no-product a{
+    display:inline-block;
+    background:var(--bone);
+    color:var(--ink);
+    padding:0.9rem 2rem;
+    border-radius:30px;
+    font-size:0.85rem;
+    font-weight:600;
+  }
+
+  @media (max-width: 900px){
+    .order-section{grid-template-columns:1fr; gap:2.5rem;}
+    .product-summary{position:static;}
+    .order-form-card{padding:2.2rem 1.6rem;}
+    .row-2{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  :focus-visible{outline:2px solid var(--clay); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<div class="swatch-strip" aria-hidden="true">
+  <span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span>
+  <span class="s5"></span><span class="s6"></span><span class="s7"></span><span class="s8"></span>
+</div>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="logo">make <em>up</em></a>
+    <a href="shop.html" class="back-link">← Back to shop</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div id="orderSection" class="order-section">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const product = {
+    name: params.get('name'),
+    shade: params.get('shade'),
+    price: params.get('price'),
+    color: params.get('color'),
+  };
+
+  const wilayas = [
+    "Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","Béjaïa","Biskra","Béchar",
+    "Blida","Bouira","Tamanrasset","Tébessa","Tlemcen","Tiaret","Tizi Ouzou","Alger",
+    "Djelfa","Jijel","Sétif","Saïda","Skikda","Sidi Bel Abbès","Annaba","Guelma",
+    "Constantine","Médéa","Mostaganem","M'Sila","Mascara","Ouargla","Oran","El Bayadh",
+    "Illizi","Bordj Bou Arréridj","Boumerdès","El Tarf","Tindouf","Tissemsilt","El Oued",
+    "Khenchela","Souk Ahras","Tipaza","Mila","Aïn Defla","Naâma","Aïn Témouchent",
+    "Ghardaïa","Relizane","Timimoun","Bordj Badji Mokhtar","Ouled Djellal","Béni Abbès",
+    "In Salah","In Guezzam","Touggourt","Djanet","El M'Ghair","El Meniaa"
+  ];
+
+  const section = document.getElementById('orderSection');
+
+  if(!product.name || !product.price){
+    section.innerHTML = `
+      <div class="no-product" style="grid-column:1 / -1;">
+        <h2 class="display">No product selected</h2>
+        <p>Head back to the shop and pick a shade to order.</p>
+        <a href="shop.html">Browse the Edit</a>
+      </div>
+    `;
+  } else {
+    const wilayaOptions = wilayas.map(w => `<option value="${w}">${w}</option>`).join('');
+
+    section.innerHTML = `
+      <div class="product-summary">
+        <div class="product-visual">
+          <div class="glow" style="background:${product.color || '#C97B63'};"></div>
+          <div class="product-emblem" style="background:${product.color || '#C97B63'};"></div>
+        </div>
+        <span class="cat-tag">Selected Shade</span>
+        <h1 class="display">${product.name}</h1>
+        <div class="shade-name">${product.shade || ''}</div>
+        <div class="price">$${product.price}</div>
+        <p class="desc">You're a step away from this one. Fill in your details and we'll confirm your order directly — payment on delivery.</p>
+
+        <div class="summary-block">
+          <div class="summary-line"><span>Item</span><span class="v">${product.name}</span></div>
+          <div class="summary-line"><span>Delivery</span><span class="v">Calculated by wilaya</span></div>
+          <div class="summary-line total"><span>Total</span><span class="v">$${product.price}</span></div>
+        </div>
+      </div>
+
+      <div class="order-form-card">
+        <span class="eyebrow">Checkout</span>
+        <h2 class="display">Complete your order</h2>
+        <p class="sub">We'll reach out to confirm details before shipping.</p>
+
+        <div class="form-error" id="formError">Something went wrong sending your order. Please check your details and try again.</div>
+
+        <form id="orderForm">
+          <input type="hidden" name="product" value="${product.name}">
+          <input type="hidden" name="shade" value="${product.shade || ''}">
+          <input type="hidden" name="price" value="${product.price}">
+
+          <div class="field">
+            <label for="fullName">Full name</label>
+            <input type="text" id="fullName" name="name" placeholder="e.g. Amina Belkacem" required>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="wilaya">Wilaya</label>
+              <select id="wilaya" name="wilaya" required>
+                <option value="" disabled selected>Select wilaya</option>
+                ${wilayaOptions}
+              </select>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" placeholder="05XX XX XX XX" required pattern="[0-9+\\s]{8,15}">
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Confirm Order — $${product.price}</button>
+          <p class="form-note">By confirming, you agree to be contacted by phone to finalize your order.</p>
+        </form>
+
+        <div class="success-state" id="successState">
+          <div class="success-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M6 14.5L11 19.5L22 8.5" stroke="#1A1410" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="display">Order received</h2>
+          <p>Thank you! We'll call you shortly at the number you provided to confirm your order and delivery.</p>
+          <div style="display:flex; flex-direction:column; gap:0.85rem; align-items:center;">
+            <a href="/download-orders" class="back-shop">Download all orders</a>
+            <a href="shop.html" class="back-shop">← Continue shopping</a>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const form = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formError = document.getElementById('formError');
+    const orderFormCard = document.querySelector('.order-form-card');
+    const successState = document.getElementById('successState');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      formError.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      try {
+        const response = await fetch('/api/order', {
+          method: 'POST',
+          body: new FormData(form),
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          successState.classList.add('show');
+        } else {
+          const result = await response.json().catch(() => ({}));
+          formError.textContent = result.message || 'Something went wrong sending your order. Please check your details and try again.';
+          formError.classList.add('show');
+          submitBtn.disabled = false;
+          submitBtn.textContent = `Confirm Order — $${product.price}`;
+        }
+      } catch (err) {
+        formError.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = `Confirm Order — $${product.price}`;
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
