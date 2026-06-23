@@ -368,9 +368,9 @@
   <div class="wrap filter-row">
     <div class="filter-group" id="filterGroup">
       <button class="filter-chip active" data-cat="all"><span class="dot"></span> All Products</button>
-      <button class="filter-chip" data-cat="lip"><span class="dot"></span> Lip</button>
-      <button class="filter-chip" data-cat="cheek"><span class="dot"></span> Cheek</button>
-      <button class="filter-chip" data-cat="eye"><span class="dot"></span> Eye</button>
+      <button class="filter-chip" data-cat="STARTER PACK"><span class="dot"></span> Lip</button>
+      <button class="filter-chip" data-cat="POPULAR PACK"><span class="dot"></span> Cheek</button>
+      <button class="filter-chip" data-cat="PREMIUM PACK"><span class="dot"></span> Eye</button>
     </div>
     <select class="sort-select" id="sortSelect">
       <option value="default">Sort: Featured</option>
@@ -431,34 +431,33 @@
 
 <script>
   const products = [
-    { name:"Embered", shade:"Velvet Lip — 04", cat:"lip", price:28, color:"#A8473A", low:false },
-    { name:"Last Call", shade:"Velvet Lip — 09", cat:"lip", price:28, color:"#6B2737", low:false },
-    { name:"Bare Truce", shade:"Sheer Lip — 01", cat:"lip", price:26, color:"#C97B63", low:false },
-    { name:"Fig & Smoke", shade:"Velvet Lip — 11", cat:"lip", price:28, color:"#5C2A2E", low:true },
-    { name:"Rosewood", shade:"Velvet Lip — 06", cat:"lip", price:28, color:"#9C5240", low:false },
-    { name:"Apricot Hush", shade:"Sheer Lip — 03", cat:"lip", price:26, color:"#D98B6B", low:false },
-    { name:"Midnight Plum", shade:"Velvet Lip — 13", cat:"lip", price:30, color:"#4A2030", low:false },
-    { name:"Terracotta", shade:"Velvet Lip — 02", cat:"lip", price:28, color:"#B5634A", low:false },
-    { name:"Cinder Rose", shade:"Velvet Lip — 08", cat:"lip", price:28, color:"#8A4A50", low:true },
-    { name:"Honeyfade", shade:"Sheer Cheek — 02", cat:"cheek", price:32, color:"#D9AD7D", low:false },
-    { name:"Sundown Flush", shade:"Cream Cheek — 05", cat:"cheek", price:34, color:"#C97B63", low:false },
-    { name:"Bronzed Hour", shade:"Bronzer — 01", cat:"cheek", price:36, color:"#A8703F", low:false },
-    { name:"Quiet Bloom", shade:"Cream Cheek — 02", cat:"cheek", price:34, color:"#C98593", low:false },
-    { name:"Sienna Warm", shade:"Bronzer — 02", cat:"cheek", price:36, color:"#9C5A2E", low:false },
-    { name:"Petal Dust", shade:"Sheer Cheek — 04", cat:"cheek", price:32, color:"#D6A0A8", low:true },
-    { name:"Spiced Clay", shade:"Cream Cheek — 07", cat:"cheek", price:34, color:"#B06B4A", low:false },
-    { name:"Bare Wood", shade:"Eye Pigment — 01", cat:"eye", price:24, color:"#8A4A3C", low:false },
-    { name:"Embered Smoke", shade:"Eye Pigment — 07", cat:"eye", price:24, color:"#5C3A30", low:false },
-    { name:"Last Light", shade:"Eye Pigment — 03", cat:"eye", price:24, color:"#B8935A", low:false },
-    { name:"Berry Smudge", shade:"Eye Liner — 02", cat:"eye", price:22, color:"#6B2737", low:false },
-    { name:"Quiet Bronze", shade:"Eye Pigment — 05", cat:"eye", price:24, color:"#A8763F", low:false },
-    { name:"Worn Copper", shade:"Eye Pigment — 09", cat:"eye", price:24, color:"#A85C3F", low:true },
-    { name:"Deep Umber", shade:"Eye Liner — 01", cat:"eye", price:22, color:"#3A2A22", low:false },
-    { name:"Gilded Taupe", shade:"Eye Pigment — 11", cat:"eye", price:24, color:"#8F7A5E", low:false },
-    { name:"Plum Smudge", shade:"Eye Liner — 04", cat:"eye", price:22, color:"#4A2030", low:false },
-    { name:"Soft Ember", shade:"Eye Pigment — 06", cat:"eye", price:24, color:"#C97B63", low:false },
-    { name:"Gold Hour", shade:"Eye Pigment — 02", cat:"eye", price:24, color:"#B8935A", low:false },
-  ];
+  {
+    name: "Beauty Essentials",
+    shade: "Starter Pack",
+    cat: "STARTER PACK",
+    price: 1500,
+    color: "#C97B63",
+    low: false
+  },
+
+  {
+    name: "Glow Collection",
+    shade: "Popular Pack",
+    cat: "POPULAR PACK",
+    price: 2500,
+    color: "#D9AD7D",
+    low: false
+  },
+
+  {
+    name: "Luxury Beauty Box",
+    shade: "Premium Pack",
+    cat: "PREMIUM PACK",
+    price: 4000,
+    color: "#6B2737",
+    low: false
+  }
+];
 
   let currentCat = 'all';
   let currentSort = 'default';
@@ -548,7 +547,8 @@
 
   const urlParams = new URLSearchParams(window.location.search);
   const initialCat = urlParams.get('cat');
-  if(initialCat && ['lip','cheek','eye'].includes(initialCat)){
+  if(initialCat &&
+['STARTER PACK','POPULAR PACK','PREMIUM PACK'].includes(initialCat)){
     filterCat(initialCat, false);
   }
 </script>
