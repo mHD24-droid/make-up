@@ -421,15 +421,47 @@ f<!DOCTYPE html>
     position:absolute;
     inset:0;
     z-index:0;
-  }
-  .cat-card.c1 .blob{ background: radial-gradient(circle at 70% 20%, #8A4A3C, var(--ink-soft) 70%);}
-  .cat-card.c2 .blob{ background: radial-gradient(circle at 30% 25%, var(--berry), var(--ink-soft) 70%);}
-  .cat-card.c3 .blob{ background: radial-gradient(circle at 60% 15%, var(--gold), var(--ink-soft) 70%);}
+    background-size:cover;
+    background-position:center;
+    transition:transform .5s ease;
+}
 
-  .cat-card .content{
+.cat-card:hover .blob{
+    transform:scale(1.05);
+}
+
+/* First image */
+.cat-card.c1 .blob{
+    background-image:url('data/WhatsApp Image 2026-06-22 at 21.58.02.jpeg');
+}
+
+/* Second image */
+.cat-card.c2 .blob{
+    background-image:url('data/WhatsApp Image 2026-06-22 at 21.58.00.jpeg');
+}
+
+/* Third image */
+.cat-card.c3 .blob{
+    background-image:url('/offer4000.jpg');
+}
+
+/* Dark overlay for readability */
+.cat-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.8),
+        rgba(0,0,0,.2)
+    );
+    z-index:0;
+}
+
+.cat-card .content{
     position:relative;
-    z-index:1;
-  }
+    z-index:2;
+}
   .cat-card .eyebrow{color:rgba(242,233,221,0.65);}
   .cat-card h3{
     font-family:'Fraunces', serif;
