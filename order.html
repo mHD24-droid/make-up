@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">F
 <title>Order — Make Up</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -378,13 +378,13 @@
         <span class="cat-tag">Selected Shade</span>
         <h1 class="display">${product.name}</h1>
         <div class="shade-name">${product.shade || ''}</div>
-        <div class="price">$${product.price}</div>
+        <div class="price">${product.price}DA</div>
         <p class="desc">You're a step away from this one. Fill in your details and we'll confirm your order directly — payment on delivery.</p>
 
         <div class="summary-block">
           <div class="summary-line"><span>Item</span><span class="v">${product.name}</span></div>
           <div class="summary-line"><span>Delivery</span><span class="v">Calculated by wilaya</span></div>
-          <div class="summary-line total"><span>Total</span><span class="v">$${product.price}</span></div>
+          <div class="summary-line total"><span>Total</span><span class="v">${product.price}DA</span></div>
         </div>
       </div>
 
@@ -397,7 +397,7 @@
 
         <form id="orderForm">
           <input type="hidden" name="product" value="${product.name} — ${product.shade || ''}">
-          <input type="hidden" name="price" value="$${product.price}">
+          <input type="hidden" name="price" value="${product.price}DA">
 
           <div class="field">
             <label for="fullName">Full name</label>
