@@ -493,11 +493,11 @@
       card.style.animationDelay = `${Math.min(i * 0.04, 0.4)}s`;
       const slug = encodeURIComponent(p.name);
       card.innerHTML = `
-        <a class="card-visual" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}">
+        <a class="card-visual" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}&image=${encodeURIComponent(p.image)}">
          <img src="${p.image}" alt="${p.name}" class="product-image">
          <button class="quick-add" data-name="${p.name}">+ Add to Bag</button>
         </a>
-        <a class="card-meta" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}">
+        <a class="card-meta" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}&image=${encodeURIComponent(p.image)}">
           <span class="cat-tag">${p.cat}</span>
           <h3 class="display">${p.name}</h3>
           <div class="shade-name">${p.shade}</div>
