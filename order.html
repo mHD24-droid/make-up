@@ -113,6 +113,12 @@
     z-index:1;
     box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
   }
+  .product-photo{
+   width:100%;
+   height:100%;
+   object-fit:cover;
+   border-radius:40px;
+   }
   .product-summary .cat-tag{
     font-size:0.7rem;
     letter-spacing:0.1em;
@@ -480,6 +486,32 @@
     const formError = document.getElementById('formError');
     const orderFormCard = document.querySelector('.order-form-card');
     const successState = document.getElementById('successState');
+    const productSelect = document.getElementById('productSelect');
+const productImage = document.getElementById('productImage');
+const productTitle = document.getElementById('productTitle');
+const productPrice = document.getElementById('productPrice');
+const totalPrice = document.getElementById('totalPrice');
+const hiddenPrice = document.getElementById('hiddenPrice');
+
+productSelect.addEventListener('change', () => {
+
+  const selected =
+    productSelect.options[productSelect.selectedIndex];
+
+  const name = selected.value;
+  const price = selected.dataset.price;
+  const image = selected.dataset.image;
+
+  productImage.src = image;
+  productTitle.textContent = name;
+  productPrice.textContent = price + ' DA';
+  totalPrice.textContent = price + ' DA';
+  hiddenPrice.value = price;
+
+  submitBtn.textContent =
+    'Confirm Order — ' + price + ' DA';
+
+});
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
