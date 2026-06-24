@@ -212,6 +212,17 @@
     border-radius:50% 48% 52% 50% / 55% 50% 50% 45%;
     transition: transform 0.5s cubic-bezier(.16,1,.3,1);
   }
+  .product-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:32px;
+  transition:transform .5s ease;
+  }
+
+  .product-card:hover .product-image{
+  transform:scale(1.05);
+  }
   .product-card:hover .product-emblem{transform: scale(1.08) rotate(3deg);}
 
   .quick-add{
@@ -455,6 +466,14 @@
     image: "data/4000.png",
     low: false
   }
+     {
+    name: "Mini Beauty Kit",
+    shade: "Starter Pack",
+    cat: "STARTER PACK",
+    price: 1800,
+    image: "data/product4.jpg",
+    low: true
+  }
 ];
 
   let currentCat = 'all';
@@ -482,11 +501,11 @@
       card.style.animationDelay = `${Math.min(i * 0.04, 0.4)}s`;
       const slug = encodeURIComponent(p.name);
       card.innerHTML = `
-        <a class="card-visual" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}&color=${encodeURIComponent(p.color)}">
-          <div class="product-emblem" style="background:${p.color};"></div>
-          <button class="quick-add" data-name="${p.name}">+ Add to Bag</button>
+        <a class="card-visual" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}">
+         <img src="${p.image}" alt="${p.name}" class="product-image">
+         <button class="quick-add" data-name="${p.name}">+ Add to Bag</button>
         </a>
-        <a class="card-meta" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}&color=${encodeURIComponent(p.color)}">
+        <a class="card-meta" href="order.html?name=${slug}&shade=${encodeURIComponent(p.shade)}&price=${p.price}">
           <span class="cat-tag">${p.cat}</span>
           <h3 class="display">${p.name}</h3>
           <div class="shade-name">${p.shade}</div>
