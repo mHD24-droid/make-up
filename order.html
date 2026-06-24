@@ -442,8 +442,8 @@
               <input type="tel" id="phone" name="phone" placeholder="05XX XX XX XX" required pattern="[0-9+\\s]{8,15}">
             </div>
           </div>
+         <input type="hidden" id="hiddenPrice" name="price" value="${product.price}">
          
-          <button type="submit" class="submit-btn" id="submitBtn">Confirm Order — ${product.price}DA</button>
           <p class="form-note">By confirming, you agree to be contacted by phone to finalize your order.</p>
         </form>
 
