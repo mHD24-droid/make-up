@@ -371,14 +371,24 @@
 
     section.innerHTML = `
       <div class="product-summary">
-        <div class="product-visual">
-          <div class="glow" style="background:${product.color || '#C97B63'};"></div>
-          <div class="product-emblem" style="background:${product.color || '#C97B63'};"></div>
-        </div>
-        <span class="cat-tag">Selected Shade</span>
-        <h1 class="display">${product.name}</h1>
+         <div class="product-visual">
+          <img id="productImage"
+          src="${product.image || 'data/WhatsApp Image 2026-06-22 at 21.58.02.jpeg'}"
+          class="product-photo"
+          alt="${product.name}">
+         </div>
+
+         <span class="cat-tag">Selected Product</span>
+
+         <h1 class="display" id="productTitle">
+                 ${product.name}
+        </h1>
+
         <div class="shade-name">${product.shade || ''}</div>
-        <div class="price">${product.price}DA</div>
+
+        <div class="price" id="productPrice">
+           ${product.price} DA
+        </div>
         <p class="desc">You're a step away from this one. Fill in your details and we'll confirm your order directly — payment on delivery.</p>
 
         <div class="summary-block">
@@ -403,6 +413,27 @@
             <label for="fullName">Full name</label>
             <input type="text" id="fullName" name="name" placeholder="e.g. Amina Belkacem" required>
           </div>
+ <label for="productSelect">Select Product</label>
+
+  <select id="productSelect" name="product">
+
+    <option value="Beauty Essentials"
+      data-price="1500"
+      data-image="data/WhatsApp Image 2026-06-22 at 21.58.02.jpeg">
+      Beauty Essentials - 1500 DA
+    </option>
+
+    <option value="Glow Collection"
+      data-price="2500"
+      data-image="data/WhatsApp Image 2026-06-22 at 21.58.00.jpeg">
+      Glow Collection - 2500 DA
+    </option>
+
+    <option value="Luxury Beauty Box"
+      data-price="4000"
+      data-image="data/4000.png">
+      Luxury Beauty Box - 4000 DA
+    </option>
 
           <div class="row-2">
             <div class="field">
