@@ -398,7 +398,7 @@
         <p class="desc">You're a step away from this one. Fill in your details and we'll confirm your order directly — payment on delivery.</p>
 
         <div class="summary-block">
-          <div class="summary-line"><span>Item</span><span class="v">${product.name}</span></div>
+          <div class="summary-line"><span>Item</span><span class="v" id="summaryItem">${product.name}</span></div>
           <div class="summary-line"><span>Delivery</span><span class="v">Calculated by wilaya</span></div>
           <div class="summary-line total"><span>Total</span><span class="v" id="totalPrice">${product.price} DA</span></div>
         </div>
@@ -497,16 +497,23 @@ const productTitle = document.getElementById('productTitle');
 const productPrice = document.getElementById('productPrice');
 const totalPrice = document.getElementById('totalPrice');
 const hiddenPrice = document.getElementById('hiddenPrice');
-
+const summaryItem = document.getElementById('summaryItem');
 productSelect.addEventListener('change', () => {
 
-  const selected =
-    productSelect.options[productSelect.selectedIndex];
+    const selected =
+        productSelect.options[productSelect.selectedIndex];
 
-  const name = selected.value;
-  const price = selected.dataset.price;
-  const image = selected.dataset.image;
+    const name = selected.value;
+    const price = selected.dataset.price;
+    const image = selected.dataset.image;
 
+    // Update image
+    productImage.src = image;
+
+    // Update title
+    productTitle.textContent = name;
+
+    // Update prices
   productImage.src = image;
   productTitle.textContent = name;
   productPrice.textContent = price + ' DA';
