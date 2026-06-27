@@ -492,7 +492,7 @@
     if(currentSort === 'name') list.sort((a,b)=>a.name.localeCompare(b.name));
 
     grid.innerHTML = '';
-    resultCount.textContent = `${list.length} product${list.length !== 1 ? 's' : ''}`;
+    resultCount.textContent = `DA{list.length} productDA{list.length !== 1 ? 's' : ''}`;
     emptyState.classList.toggle('show', list.length === 0);
 
     list.forEach((p, i) => {
