@@ -459,7 +459,7 @@
 
         <div class="summary-block">
           <div class="summary-line"><span>Item</span><span class="v" id="summaryItem">${product.name}</span></div>
-          <div class="summary-line"><span class="v" id="deliveryPrice">Calculated by wilaya</span>
+          <div class="summary-line"><span>delivery</span><span class="v" id="deliveryPrice">Calculated by wilaya</span>
           <div class="summary-line total"><span>Total</span><span class="v" id="totalPrice">${product.price} DA</span></div>
         </div>
       </div>
@@ -559,46 +559,52 @@ const hiddenPrice = document.getElementById('hiddenPrice');
 const summaryItem = document.getElementById('summaryItem');
 const wilayaSelect = document.getElementById('wilaya');
 const deliveryPriceEl = document.getElementById('deliveryPrice');
-productSelect.addEventListener('change', () => {
 
-    const selected =
-        productSelect.options[productSelect.selectedIndex];
+// Update total price
+function updateTotal() {
 
-    const name = selected.value;
-    const price = selected.dataset.price;
-    const image = selected.dataset.image;
+  const selected =
+    productSelect.options[productSelect.selectedIndex];
 
-    // Update image
-    productImage.src = image;
+  const name = selected.value;
+  const price = parseInt(selected.dataset.price);
+  const image = selected.dataset.image;
 
-    // Update title
-    productTitle.textContent = name;
+  // Shipping price
+  const wilaya = wilayaSelect.value;
+  const shipping = deliveryPrices[wilaya] || 0;
 
-    // Update prices
+  // Total
+  const total = price + shipping;
+
+  // Update product info
   productImage.src = image;
   productTitle.textContent = name;
   productPrice.textContent = price + ' DA';
-function updateTotal() {
-    const selected =
-        productSelect.options[productSelect.selectedIndex];
+  summaryItem.textContent = name;
 
-    const productPriceValue =
-        parseInt(selected.dataset.price);
-
-    const wilaya = wilayaSelect.value;
-    const shipping = deliveryPrices[wilaya] || 0;
-
+  // Update delivery
+  if (wilaya) {
     deliveryPriceEl.textContent = shipping + ' DA';
+  } else {
+    deliveryPriceEl.textContent = 'Calculated by wilaya';
+  }
 
-    const total = productPriceValue + shipping;
+  // Update total
+  totalPrice.textContent = total + ' DA';
+  hiddenPrice.value = total;
 
-    totalPrice.textContent = total + ' DA';
-    hiddenPrice.value = total;
-
-    submitBtn.textContent =
-      'Confirm Order — ' + totalPrice + ' DA';
+  // Update button
+  submitBtn.textContent =
+    'Confirm Order — ' + total + ' DA';
 }
-});
+
+// Events
+productSelect.addEventListener('change', updateTotal);
+wilayaSelect.addEventListener('change', updateTotal);
+
+// Initial update
+updateTotal();
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
