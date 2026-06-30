@@ -361,6 +361,66 @@
     "Ghardaïa","Relizane","Timimoun","Bordj Badji Mokhtar","Ouled Djellal","Béni Abbès",
     "In Salah","In Guezzam","Touggourt","Djanet","El M'Ghair","El Meniaa"
   ];
+ const deliveryPrices = {
+  "Adrar": 800,
+  "Chlef": 500,
+  "Laghouat": 700,
+  "Oum El Bouaghi": 600,
+  "Batna": 600,
+  "Béjaïa": 500,
+  "Biskra": 700,
+  "Béchar": 800,
+  "Blida": 400,
+  "Bouira": 500,
+  "Tamanrasset": 1200,
+  "Tébessa": 700,
+  "Tlemcen": 600,
+  "Tiaret": 600,
+  "Tizi Ouzou": 500,
+  "Alger": 300,
+  "Djelfa": 700,
+  "Jijel": 600,
+  "Sétif": 500,
+  "Saïda": 700,
+  "Skikda": 600,
+  "Sidi Bel Abbès": 600,
+  "Annaba": 600,
+  "Guelma": 600,
+  "Constantine": 500,
+  "Médéa": 500,
+  "Mostaganem": 500,
+  "M'Sila": 600,
+  "Mascara": 600,
+  "Ouargla": 800,
+  "Oran": 500,
+  "El Bayadh": 800,
+  "Illizi": 1200,
+  "Bordj Bou Arréridj": 500,
+  "Boumerdès": 400,
+  "El Tarf": 700,
+  "Tindouf": 1300,
+  "Tissemsilt": 600,
+  "El Oued": 800,
+  "Khenchela": 700,
+  "Souk Ahras": 700,
+  "Tipaza": 400,
+  "Mila": 600,
+  "Aïn Defla": 500,
+  "Naâma": 900,
+  "Aïn Témouchent": 600,
+  "Ghardaïa": 800,
+  "Relizane": 500,
+  "Timimoun": 1000,
+  "Bordj Badji Mokhtar": 1500,
+  "Ouled Djellal": 700,
+  "Béni Abbès": 1000,
+  "In Salah": 1100,
+  "In Guezzam": 1500,
+  "Touggourt": 800,
+  "Djanet": 1300,
+  "El M'Ghair": 800,
+  "El Meniaa": 900
+};
 
   const section = document.getElementById('orderSection');
 
@@ -399,7 +459,7 @@
 
         <div class="summary-block">
           <div class="summary-line"><span>Item</span><span class="v" id="summaryItem">${product.name}</span></div>
-          <div class="summary-line"><span>Delivery</span><span class="v">Calculated by wilaya</span></div>
+          <div class="summary-line"><span class="v" id="deliveryPrice">Calculated by wilaya</span>
           <div class="summary-line total"><span>Total</span><span class="v" id="totalPrice">${product.price} DA</span></div>
         </div>
       </div>
@@ -497,6 +557,8 @@ const productPrice = document.getElementById('productPrice');
 const totalPrice = document.getElementById('totalPrice');
 const hiddenPrice = document.getElementById('hiddenPrice');
 const summaryItem = document.getElementById('summaryItem');
+const wilayaSelect = document.getElementById('wilaya');
+const deliveryPriceEl = document.getElementById('deliveryPrice');
 productSelect.addEventListener('change', () => {
 
     const selected =
@@ -516,12 +578,27 @@ productSelect.addEventListener('change', () => {
   productImage.src = image;
   productTitle.textContent = name;
   productPrice.textContent = price + ' DA';
-  totalPrice.textContent = price + ' DA';
-  hiddenPrice.value = price;
+function updateTotal() {
+    const selected =
+        productSelect.options[productSelect.selectedIndex];
 
-  submitBtn.textContent =
-    'Confirm Order — ' + price + ' DA';
+    const productPriceValue =
+        parseInt(selected.dataset.price);
 
+    const wilaya = wilayaSelect.value;
+    const shipping = deliveryPrices[wilaya] || 0;
+
+    deliveryPriceEl.textContent = shipping + ' DA';
+
+    const total = productPriceValue + shipping;
+
+    totalPrice.textContent = total + ' DA';
+    hiddenPrice.value = total;
+
+    submitBtn.textContent =
+      'Confirm Order — ' + total + ' DA';
+}
+  wilayaSelect.addEventListener('change', updateTotal);
 });
 
     form.addEventListener('submit', async (e) => {
