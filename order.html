@@ -39,8 +39,13 @@
     font-weight:600;
   }
 
-  .wrap{max-width:1100px; margin:0 auto; padding:0 6vw;}
-
+.wrap{
+    width:100%;
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 50px;
+}
+  
   .swatch-strip{display:flex; height:14px; width:100%;}
   .swatch-strip span{flex:1; height:100%;}
   .swatch-strip .s1{background:#A8473A;}
@@ -74,33 +79,26 @@
 
   /* ---------- layout ---------- */
   .order-section{
-    padding:4rem 0 6rem;
+    padding:60px 0;
     display:grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap:4.5rem;
+    grid-template-columns: 1fr 1.1fr;
+    gap:80px;
     align-items:start;
-  }
+}
 
   /* ---------- product summary side ---------- */
-  .product-summary{
+.product-summary{
     position:sticky;
-    top:3rem;
-  }
-  .product-visual{
+    top:40px;
     width:100%;
-    max-width:550px;
+}
+ .product-visual{
+    width:100%;
+    max-width:520px;
     aspect-ratio:1/1;
-    margin:0 auto 30px;
-    aspect-ratio: 1/1;
     border-radius:40px;
-    background: var(--ink-soft);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:1.8rem;
-    position:relative;
-    overflow:hidden;
-  }
+    margin-bottom:30px;
+}
   .product-visual .glow{
     position:absolute;
     width:140%; height:140%;
@@ -129,22 +127,20 @@
     color:var(--clay);
     font-weight:600;
   }
-  .product-summary h1{
-    font-size:clamp(1.8rem, 3vw, 2.4rem);
-    margin-top:0.5rem;
+.product-summary h1{
+    font-size:4rem;
+    margin-top:10px;
     font-weight:400;
-  }
+}
   .product-summary .shade-name{
     color:var(--bone-dim);
     font-size:0.95rem;
     margin-top:0.3rem;
   }
-  .product-summary .price{
-    font-family:'Fraunces', serif;
-    font-size:1.7rem;
-    color:var(--gold);
-    margin-top:1rem;
-  }
+.product-summary .price{
+    font-size:3rem;
+    margin-top:20px;
+}
   .product-summary .desc{
     margin-top:1.4rem;
     color:var(--bone-dim);
@@ -170,11 +166,12 @@
   .summary-block{margin-top:2rem;}
 
   /* ---------- form side ---------- */
-  .order-form-card{
-    background: var(--ink-soft);
+.order-form-card{
+    background:var(--ink-soft);
     border-radius:40px;
-    padding:3rem;
-  }
+    padding:50px;
+    width:100%;
+}
   .order-form-card .eyebrow{display:block; margin-bottom:0.6rem;}
   .order-form-card h2{
     font-size:1.6rem;
@@ -228,8 +225,8 @@
   .row-2{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:1.2rem;
-  }
+    gap:20px;
+}
 
   .submit-btn{
     width:100%;
