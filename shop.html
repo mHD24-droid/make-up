@@ -444,7 +444,7 @@
 <script>
   const products = [
   {
-    name: "Bproducts001",
+    name: "Beauty BOX",
     shade: "Starter Pack",
     cat: "STARTER PACK",
     price: 1500,
@@ -452,7 +452,7 @@
     low: false
   },
      {
-    name: "Bproducts002",
+    name: "Beauty Box2",
     shade: "Starter Pack01",
     cat: "STARTER PACK",
     price: 1500,
@@ -460,21 +460,13 @@
     low: false
   },
   {
-    name: "Gn2 product",
+    name: "Gn2 Box",
     shade: "Popular Pack",
     cat: "POPULAR PACK",
-    price: 2500,
+    price: 3500,
     image: "data/WhatsApp Image 2026-06-22 at 21.58.00.jpeg",
     low: false
   },
-  {
-    name: "bn3 product",
-    shade: "Premium Pack",
-    cat: "PREMIUM PACK",
-    price: 4000,
-    image: "data/4000.png",
-    low: false
-  }
 ];
 
   let currentCat = 'all';
@@ -493,7 +485,7 @@
     if(currentSort === 'name') list.sort((a,b)=>a.name.localeCompare(b.name));
 
     grid.innerHTML = '';
-    resultCount.textContent = `DA{list.length} productDA{list.length !== 1 ? 's' : ''}`;
+    resultCount.textContent = `DA{list.length} product${list.length !== 1 ? 's' : ''}`;
     emptyState.classList.toggle('show', list.length === 0);
 
     list.forEach((p, i) => {
